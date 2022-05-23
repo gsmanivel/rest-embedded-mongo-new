@@ -1,0 +1,7 @@
+Part -1 :
+
+MongoDB : Installed in the phisical machine. Running in localhost default mongodb portal
+
+Result: 
+Able to perform POST & GET operations.
+Verfied in mongod composs
