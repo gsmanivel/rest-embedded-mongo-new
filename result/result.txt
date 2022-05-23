@@ -1,0 +1,45 @@
+
+Scenario : 1
+
+Endpoint: http://localhost:8080/api/users
+http method: GET
+
+Response: []
+
+--------------------------------------------------------------------------------------
+
+
+Scenario : 2
+Endpoint: http://localhost:8080/api/users
+http method: POST
+
+Request Body:
+
+{
+    "userName":"manivel"
+}
+
+
+Response:
+{
+    "userId": "628ba8893cb6de319db0962a",
+    "userName": "manivel"
+}
+
+--------------------------------------------------------------------------------------
+
+
+Scenario : 3
+
+Endpoint: http://localhost:8080/api/users
+http method: GET
+
+Response:
+    [
+        {
+            "userId": "628ba5239f5a5424ff1397ef",
+            "userName": "Ayush manivel"
+        }
+    ]
+
+--------------------------------------------------------------------------------------
