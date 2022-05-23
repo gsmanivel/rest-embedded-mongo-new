@@ -1,8 +1,20 @@
-Part -1 :
+Part -2 :
 
+src/main:
 MongoDB : Installed in the phisical machine. Running in localhost default mongodb portal
 Embedded-Mongo library - is comment out
 
 Result: 
 Able to perform POST & GET operations.
 Verfied in mongod composs
+
+
+----------------------------------
+
+Testing:
+Enabled embedded mongodb (Automatically downloads 3.4.5
+updated springboot version (2.7.0)
+
+Created two tests
+Embedded DB is connected and test is executed
+Verified that one pass and one fails as expected
