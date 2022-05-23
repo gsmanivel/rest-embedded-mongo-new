@@ -1,6 +1,7 @@
 Part -1 :
 
 MongoDB : Installed in the phisical machine. Running in localhost default mongodb portal
+Embedded-Mongo library - is comment out
 
 Result: 
 Able to perform POST & GET operations.
