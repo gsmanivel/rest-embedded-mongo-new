@@ -1,4 +1,4 @@
-Part -2 :
+Part -3 :
 
 src/main:
 MongoDB : Installed in the phisical machine. Running in localhost default mongodb portal
@@ -15,6 +15,11 @@ Testing:
 Enabled embedded mongodb (Automatically downloads 3.4.5
 updated springboot version (2.7.0)
 
-Created two tests
-Embedded DB is connected and test is executed
-Verified that one pass and one fails as expected
+Created Integration Test:
+
+One for GET
+One for POST
+
+Added flapdoodle version (Embedded mongoDB) in src/test/resources -> application.properties
+Added @SpringbootTest Annotation in Test class which creates ApplicationContext
+Integration tests run as expected
