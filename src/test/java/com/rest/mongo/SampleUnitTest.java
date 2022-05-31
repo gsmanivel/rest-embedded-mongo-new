@@ -1,14 +1,14 @@
+package com.rest.mongo;
+
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.rest.mongo.UserApplication;
 import com.rest.mongo.entity.User;
 import de.bwaldvogel.mongo.MongoServer;
 import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import org.junit.jupiter.api.*;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
@@ -17,15 +17,13 @@ import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.convert.MongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.Collections;
+import java.net.InetSocketAddress;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ActiveProfiles("test")
 @DisplayName("Karate-Integration Test")
-public class TestRunner {
+public class SampleUnitTest {
     private static MongoServer server;
     private static MongoClient client;
     private static MongoCollection collection;
@@ -41,17 +39,17 @@ public class TestRunner {
 
     private static void createMongoClient() {
         server = new MongoServer(new MemoryBackend());
-        server.bind(LOCAL_HOST, 27117);
-        final MongoClientSettings settings = getMongoClientSettings();
+        InetSocketAddress serverAddress = server.bind();
+
+        ConnectionString connectionString = new ConnectionString(
+                "mongodb://" + serverAddress.getHostName() + ":" + serverAddress.getPort() + "/user-test");
+        MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(connectionString).build();
         client = MongoClients.create(settings);
     }
-    private static MongoClientSettings getMongoClientSettings() {
-        return MongoClientSettings.builder().applyToClusterSettings(
-                builder ->  builder.hosts(Collections.singletonList(new  ServerAddress(LOCAL_HOST)))).build();
-    }
+
 
     private static void createMongoCollection() {
-      collection =  client.getDatabase("testdb").getCollection("testcollection");
+        collection =  client.getDatabase("testdb").getCollection("testcollection");
     }
 
     private static void createMongoTemplate() {
@@ -77,17 +75,9 @@ public class TestRunner {
     @Test
     public void testMongoTemplate() {
         User user = new User();
-       user.setUserName("thomos");
+        user.setUserName("thomos");
         mongoTemplate.save(user, "data");
         List<User> data = mongoTemplate.findAll(User.class, "data");
-        assertEquals(0,data.size());
+        assertEquals(1,data.size());
     }
-
-
-
-//    @Karate.Test
-//    Karate invokeHelloFeatureTest() throws IOException {
-//
-//        return new Karate().run("hello").relativeTo(getClass());
-//    }
 }
