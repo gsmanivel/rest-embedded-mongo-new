@@ -3,7 +3,7 @@ package com.rest.mongo.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("user-test")
+@Document
 public class User {
 
 	@Id
